@@ -33,7 +33,7 @@ export default function Register({ navigation }: Props) {
               className="w-4/5"
             />
           </View>
-          <View className="w-full items-center gap-y-4">
+          <View className="w-full items-center gap-4">
             <Button
               label="Cadastrar"
               variant="default"
