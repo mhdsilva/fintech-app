@@ -4,7 +4,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { cn } from "../lib/utils";
 
 const buttonVariants = cva(
-  "flex flex-row items-center justify-center rounded-md",
+  "flex flex-row items-center justify-center rounded-lg",
   {
     variants: {
       variant: {
@@ -15,7 +15,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4",
       },
       size: {
-        default: "h-10 px-4",
+        default: "h-10 px-4 py-3",
         sm: "h-8 px-2",
         lg: "h-12 px-8",
       },
