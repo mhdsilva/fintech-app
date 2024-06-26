@@ -8,7 +8,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
   return (
-    <View className="flex-1 flex-col">
+    <View className="flex-1 flex-col mt-10">
       <View className="flex-1 items-center mt-10">
         <Image source={require("../../assets/images/LOGO.png")} />
       </View>
@@ -33,7 +33,8 @@ export default function Login({ navigation }: Props) {
               label="Entrar"
               variant="default"
               size="lg"
-              className="w-4/5 "
+              className="w-4/5"
+              onPress={() => navigation.navigate("Home")}
             />
             <TouchableOpacity
               onPress={() => navigation.navigate("Register")}
