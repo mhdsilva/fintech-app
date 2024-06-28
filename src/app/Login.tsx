@@ -8,7 +8,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
   return (
-    <View className="flex-1 flex-col mt-10">
+    <View className="flex-1 bg-white flex-col mt-10">
       <View className="flex-1 items-center mt-10">
         <Image source={require("../../assets/images/LOGO.png")} />
       </View>
