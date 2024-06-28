@@ -13,6 +13,11 @@ module.exports = {
       gray: {
         DEFAULT: "#F4F4F4",
         foreground: "#333333",
+        700: "#9E9E9E",
+      },
+      white: {
+        DEFAULT: "#FFFFFF",
+        foreground: "#333333",
       },
     },
   },

@@ -4,11 +4,11 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { RootStackParamList } from "../../App";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
 export default function Register({ navigation }: Props) {
   return (
-    <View className="flex-1 flex-col mt-10">
+    <View className="flex-1 bg-white flex-col mt-10">
       <View className="flex-1 items-center mt-10">
         <Image source={require("../../assets/images/LOGO.png")} />
       </View>
