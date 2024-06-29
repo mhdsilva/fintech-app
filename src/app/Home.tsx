@@ -20,9 +20,15 @@ const token = process.env.API_TOKEN;
 
 const fetchItems = async (sortOrder: "asc" | "desc", searchTerm: string) => {
   try {
-    const res = await axios.get(
-      `https://brapi.dev/api/quote/list?token=${token}&limit=5&sortBy=close&sortOrder=${sortOrder}&search=${searchTerm}`,
-    );
+    const res = await axios.get(`https://brapi.dev/api/quote/list`, {
+      params: {
+        token: token,
+        limit: 5,
+        sortBy: "close",
+        sortOrder: sortOrder,
+        search: searchTerm,
+      },
+    });
 
     return res.data;
   } catch (error) {
