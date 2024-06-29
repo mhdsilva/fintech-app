@@ -19,6 +19,14 @@ module.exports = {
         DEFAULT: "#FFFFFF",
         foreground: "#333333",
       },
+      green: {
+        DEFAULT: "#008900",
+        foreground: "#FFFFFF",
+      },
+      red: {
+        DEFAULT: "#FF0000",
+        foreground: "#FFFFFF",
+      },
     },
   },
   plugins: [],

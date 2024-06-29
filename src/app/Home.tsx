@@ -7,6 +7,7 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Card, CardHeader, CardTitle, CardContent } from "../components/Card";
 import axios from "axios";
+import { token } from "../lib/constants";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 type DataItem = {
@@ -15,8 +16,6 @@ type DataItem = {
   close: string;
   change: string;
 };
-
-const token = process.env.API_TOKEN;
 
 const fetchItems = async (sortOrder: "asc" | "desc", searchTerm: string) => {
   try {
@@ -52,7 +51,14 @@ export default function Home({ navigation }: Props) {
       <CardHeader className="flex-col gap-y-5">
         <View className="flex-row items-center justify-between">
           <CardTitle>{item.name}</CardTitle>
-          <Button label="Ver detalhes" variant="default" size="sm" />
+          <Button
+            label="Ver detalhes"
+            variant="default"
+            size="sm"
+            onPress={() =>
+              navigation.navigate("Details", { stockId: item.stock })
+            }
+          />
         </View>
         <View className="h-0.5 bg-gray-700 w-full" />
       </CardHeader>
@@ -77,9 +83,9 @@ export default function Home({ navigation }: Props) {
   );
 
   return (
-    <View className="flex-1 bg-white flex-col mt-10">
+    <View className="flex-1 bg-white flex-col p-10">
       <Header />
-      <View className="flex-1 p-10 gap-y-6">
+      <View className="flex-1 mt-10 gap-y-6">
         <View className="flex-row items-center justify-between h-fit">
           <Text className="text-2xl font-bold">Ativos em alta:</Text>
           <Input
@@ -88,21 +94,23 @@ export default function Home({ navigation }: Props) {
             onChangeText={setSearchTerm}
           />
         </View>
-        <View className="flex-1 gap-y-4">
-          <Text className="text-xl font-bold">Filtrar por:</Text>
-          <View className="flex-row items-center gap-4">
-            <Button
-              label="Maior Preço"
-              variant={sortOrder === "desc" ? "default" : "secondary"}
-              size="sm"
-              onPress={() => setSortOrder("desc")}
-            />
-            <Button
-              label="Menor Preço"
-              variant={sortOrder === "asc" ? "default" : "secondary"}
-              size="sm"
-              onPress={() => setSortOrder("asc")}
-            />
+        <View className="flex-1 gap-y-8">
+          <View className="gap-y-2">
+            <Text className="text-xl font-bold">Filtrar por:</Text>
+            <View className="flex-row items-center gap-4">
+              <Button
+                label="Maior Preço"
+                variant={sortOrder === "desc" ? "default" : "secondary"}
+                size="sm"
+                onPress={() => setSortOrder("desc")}
+              />
+              <Button
+                label="Menor Preço"
+                variant={sortOrder === "asc" ? "default" : "secondary"}
+                size="sm"
+                onPress={() => setSortOrder("asc")}
+              />
+            </View>
           </View>
           <FlatList
             data={items}
