@@ -84,7 +84,7 @@ export default function Home({ navigation }: Props) {
 
   return (
     <View className="flex-1 bg-white flex-col p-10">
-      <Header />
+      <Header navigation={navigation} />
       <View className="flex-1 mt-10 gap-y-6">
         <View className="flex-row items-center justify-between h-fit">
           <Text className="text-2xl font-bold">Ativos em alta:</Text>
