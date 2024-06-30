@@ -76,7 +76,7 @@ export default function Details({ route, navigation }: Props) {
 
   return (
     <View className="flex-1 bg-white flex-col p-10">
-      <Header />
+      <Header navigation={navigation} />
       {loading ? (
         <View className="flex-1 items-center justify-center">
           <Text className="text-xl">Carregando...</Text>
