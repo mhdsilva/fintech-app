@@ -5,8 +5,21 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { RootStackParamList } from "../../App";
 import axios from "axios";
+import * as z from "zod";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
+
+const schema = z.object({
+  name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  password: z
+    .string()
+    .min(8, "A senha deve ter pelo menos 8 caracteres")
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caractere especial"
+    ),
+});
 
 export default function Register({ navigation }: Props) {
   const [name, setName] = useState("");
@@ -14,11 +27,13 @@ export default function Register({ navigation }: Props) {
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRegister = async () => {
     setLoading(true);
     setModalVisible(true);
     try {
+      schema.parse({ name, email, password });
       await axios.post("https://backend-fintech-navy.vercel.app/api/register", {
         name: name,
         email: email,
@@ -26,6 +41,12 @@ export default function Register({ navigation }: Props) {
       });
       setLoading(false);
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        setError(error.errors[0].message);
+      } else {
+        console.log("Erro ao se cadastrar:", error);
+      }
+
       setModalVisible(false);
       setLoading(false);
       console.log("Erro ao se cadastrar:", error);
@@ -63,6 +84,7 @@ export default function Register({ navigation }: Props) {
               onChangeText={setPassword}
             />
           </View>
+          {error && <Text className="text-red">{error}</Text>}
           <View className="w-full items-center gap-4">
             <Button
               label="Cadastrar"
