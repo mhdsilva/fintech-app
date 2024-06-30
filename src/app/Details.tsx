@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Modal } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import Header from "../components/Header";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../App";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import { token } from "../lib/constants";
 import { Button } from "../components/Button";
 import { Icon } from "react-native-elements";
+import { Input } from "../components/Input";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Details">;
 type dataDetails = {
@@ -49,6 +51,27 @@ export default function Details({ route, navigation }: Props) {
   const [details, setDetails] = useState<dataDetails | null>(null);
   const [range, setRange] = useState("5d");
   const [loading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState("");
+  const { user } = useAuth();
+
+  const addToFavorites = async () => {
+    setLoading(true);
+    try {
+      await axios.post("https://backend-fintech-navy.vercel.app/api/favorite", {
+        name: name,
+        sticker: stockId,
+        user: user?.record_id,
+      });
+      setLoading(false);
+      setModalVisible(false);
+      navigation.navigate("Favorites");
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      setModalVisible(false);
+    }
+  };
 
   useEffect(() => {
     fetchDetails(stockId, range).then((res) => {
@@ -76,7 +99,7 @@ export default function Details({ route, navigation }: Props) {
 
   return (
     <View className="flex-1 bg-white flex-col p-10">
-      <Header navigation={navigation} />
+      <Header navigation={navigation} route={route.name} />
       {loading ? (
         <View className="flex-1 items-center justify-center">
           <Text className="text-xl">Carregando...</Text>
@@ -245,10 +268,54 @@ export default function Details({ route, navigation }: Props) {
               label="Adicionar aos meus ativos"
               variant="default"
               size="lg"
+              onPress={() => setModalVisible(true)}
             />
           </View>
         </View>
       )}
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+        className="flex-1"
+      >
+        {loading ? (
+          <View className="flex-1 p-10 items-center justify-center opacity bg-black/20 ">
+            <View className="bg-white w-5/6 h-2/6 rounded-lg items-center justify-center p-10 gap-y-24">
+              <Text className="font-bold text-xl text-center">
+                Carregando...
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View className="flex-1 p-10 items-center justify-center opacity bg-black/20 ">
+            <View className="bg-white w-5/6 h-80 rounded-lg items-center p-8 gap-4">
+              <Text className="text-md text-start">
+                Salve um nome para esse ativo:
+              </Text>
+              <Input
+                label="Nome:"
+                placeholder="Ex: Meu ativo 1"
+                className="w-full"
+                onChangeText={setName}
+              />
+              <Button
+                label="Adicionar"
+                onPress={() => addToFavorites()}
+                className="w-full h-15"
+              />
+              <Button
+                label="Voltar"
+                variant="secondary"
+                onPress={() => setModalVisible(false)}
+                className="w-full h-15"
+              />
+            </View>
+          </View>
+        )}
+      </Modal>
     </View>
   );
 }

@@ -35,7 +35,7 @@ const fetchItems = async (sortOrder: "asc" | "desc", searchTerm: string) => {
   }
 };
 
-export default function Home({ navigation }: Props) {
+export default function Home({ navigation, route }: Props) {
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [searchTerm, setSearchTerm] = useState("");
@@ -84,7 +84,7 @@ export default function Home({ navigation }: Props) {
 
   return (
     <View className="flex-1 bg-white flex-col p-10">
-      <Header navigation={navigation} />
+      <Header navigation={navigation} route={route.name} />
       <View className="flex-1 mt-10 gap-y-6">
         <View className="flex-row items-center justify-between h-fit">
           <Text className="text-2xl font-bold">Ativos em alta:</Text>

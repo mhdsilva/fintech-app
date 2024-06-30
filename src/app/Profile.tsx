@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { useAuth } from "../context/AuthContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../App";
+import { Icon } from "react-native-elements";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Profile">;
 
@@ -13,9 +14,7 @@ export default function Profile({ navigation }: Props) {
   const handleLogout = () => {
     logout();
     navigation.navigate("Login");
-  }
-
-  console.log(user);
+  };
 
   if (!user) {
     return (
@@ -32,10 +31,13 @@ export default function Profile({ navigation }: Props) {
           Fin<Text className="text-primary">Tech</Text>
         </Text>
       </View>
-      <View className="h-full">
+      <View className="w-full items-start">
+        <Icon name="arrow-back" onPress={() => navigation.goBack()} size={30} />
+      </View>
+      <View className="h-full flex-1">
         <View className="flex-1 flex-col items-center justify-center gap-10">
-          <Text className="text-4xl font-bold">Profile</Text>
-          <Text className="text-2xl font-bold">Name: {user.name}</Text>
+          <Text className="text-4xl font-bold">Perfil</Text>
+          <Text className="text-2xl font-bold">Nome: {user.name}</Text>
           <Text className="text-2xl font-bold">Email: {user.email}</Text>
           <Button
             label="Sair"

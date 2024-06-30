@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 type User = {
+  record_id: string;
   name: string;
   email: string;
   password: string;
@@ -32,7 +33,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         }
       );
       if(response.data.error) throw new Error(response.data.error);
-      console.log(response.data.data.fields);
       setUser(response.data.data.fields);
     } catch (error) {
       console.error("Erro ao fazer login:", error);

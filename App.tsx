@@ -7,6 +7,7 @@ import Register from "./src/app/Register";
 import Home from "./src/app/Home";
 import Details from "./src/app/Details";
 import Profile from "./src/app/Profile";
+import Favorites from "./src/app/Favorites";
 import { AuthProvider } from "./src/context/AuthContext";
 
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   Home: undefined;
   Details: { stockId: string };
   Profile: undefined;
+  Favorites: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -32,6 +34,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Favorites" component={Favorites} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

@@ -12,10 +12,13 @@ export default function Login({ navigation }: Props) {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       await login(email, password);
+      setLoading(false);
       navigation.navigate("Home");
     } catch (error) {
       console.log("Erro ao fazer login:", error);
@@ -23,6 +26,7 @@ export default function Login({ navigation }: Props) {
         "Erro no login",
         "Verifique suas credenciais e tente novamente."
       );
+      setLoading(false);
     }
   };
 
@@ -52,13 +56,17 @@ export default function Login({ navigation }: Props) {
             />
           </View>
           <View className="w-full items-center gap-4">
-            <Button
-              label="Entrar"
-              variant="default"
-              size="lg"
-              className="w-full"
-              onPress={handleLogin}
-            />
+            {loading ? 
+            <Text>Carregando ...</Text>
+            : (
+              <Button
+                label="Entrar"
+                variant="default"
+                size="lg"
+                className="w-full"
+                onPress={handleLogin}
+              />
+            )}
             <TouchableOpacity
               onPress={() => navigation.navigate("Register")}
               className="items-center "

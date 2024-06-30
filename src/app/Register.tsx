@@ -103,8 +103,8 @@ export default function Register({ navigation }: Props) {
                 Usuário criado com sucesso!
               </Text>
               <Button
-                label="Ok"
-                variant="default"
+                label="Ir para o login"
+                variant="secondary"
                 onPress={() => navigation.navigate("Login")}
                 className="w-full h-15"
               />
