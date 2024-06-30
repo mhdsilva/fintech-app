@@ -8,9 +8,11 @@ type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
   return (
-    <View className="flex-1 bg-white flex-col mt-10">
-      <View className="flex-1 items-center mt-10">
-        <Image source={require("../../assets/images/LOGO.png")} />
+    <View className="flex-1 bg-white flex-col p-10">
+      <View className="items-center mt-10">
+        <Text className="text-3xl font-bold">
+          Fin<Text className="text-primary">Tech</Text>
+        </Text>
       </View>
       <View className="h-full">
         <View className="flex-1 flex-col items-center justify-center gap-10">
@@ -19,13 +21,13 @@ export default function Login({ navigation }: Props) {
             <Input
               label="Email:"
               placeholder="Ex: email@dominio.com"
-              className="w-4/5"
+              className="w-full"
             />
             <Input
               label="Senha:"
               placeholder="Ex: ********"
               secureTextEntry
-              className="w-4/5"
+              className="w-full"
             />
           </View>
           <View className="w-full items-center gap-4">
@@ -33,7 +35,7 @@ export default function Login({ navigation }: Props) {
               label="Entrar"
               variant="default"
               size="lg"
-              className="w-4/5"
+              className="w-full"
               onPress={() => navigation.navigate("Home")}
             />
             <TouchableOpacity
