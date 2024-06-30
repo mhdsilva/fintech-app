@@ -22,7 +22,7 @@ const fetchItems = async (sortOrder: "asc" | "desc", searchTerm: string) => {
     const res = await axios.get(`https://brapi.dev/api/quote/list`, {
       params: {
         token: token,
-        limit: 5,
+        limit: 15,
         sortBy: "close",
         sortOrder: sortOrder,
         search: searchTerm,
