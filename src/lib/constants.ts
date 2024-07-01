@@ -1,1 +1,1 @@
-export const token = process.env.EXPO_PUBLIC_API_BRAPI;
+export const token = "qkgif5ASXNHvjFX2VFixTd";
